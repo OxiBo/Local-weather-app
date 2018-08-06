@@ -1,0 +1,103 @@
+html body, .container-fluid {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: url('gallery/default1.jpg') no-repeat center center fixed;
+  background-size: cover;
+  text-align: center;
+ }
+
+body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+main{
+  -webkit-box-flex: 1;
+      -ms-flex: 1 100%;
+          flex: 1 100%;
+}
+
+.containerFlex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 75%;
+  margin: 0 auto;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color: #003366;
+}
+
+#temperature {
+  margin: 20px;
+}
+
+.details {
+  height: 60px;
+  display: none;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 100%;
+          flex: 1 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 5px;
+  -webkit-box-shadow: 0 5px 6px 0 rgba(0,0,0,0.15), 0 10px 40px 0 rgba(0,0,0,0.10);
+          box-shadow: 0 5px 6px 0 rgba(0,0,0,0.15), 0 10px 40px 0 rgba(0,0,0,0.10);
+  font-weight: bold;
+  background-color: #fefbd8;
+}
+
+.details:hover {
+  -webkit-box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+          box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+
+img, h2 {
+  display: inline-block;
+}
+
+footer {
+  height: 50px;
+}
+@media only screen and (min-width: 450px) {
+
+  .containerFlex {
+    width: 60%;
+    margin: 0 auto;
+  }
+
+  .details {
+    -webkit-box-flex: 1;
+        -ms-flex: 1 160px;
+            flex: 1 160px;
+  }
+}
+
+@media only screen and (min-width: 850px) {
+  .containerFlex {
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+  }
+}

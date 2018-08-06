@@ -1,0 +1,43 @@
+<!DOCTYPE>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Local weather</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+    <!-- http://getbootstrap.com/ -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- get font-awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <!-- http://jquery.com/ -->
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <!-- http://getbootstrap.com/ -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/stylesLocalWeather.css">
+    <!-- <script src="1localWeather.js" async defer></script> -->
+    <script src="localWeather_2018.js" async defer></script>
+</head>
+
+<body>
+    <main>
+    <div class='container-fluid'>
+        <div class='page-header'>
+            <h1>Local Weather App</h1>
+        </div>
+    <div id='temperature'>
+        <img id='icon'><h2 id='temp'></h2><a href='#'><h2 id='degrees'></h2></a>
+    </div>
+    <div class="containerFlex">
+        <div class='well details' id='location'><p></p></div>
+            <div class='well details' id='description'><p></p></div>
+            <div class='well details' id='windSpeed'><p></p></div>
+            <div class='well details' id='humidity'><p></p></div>
+    </div>
+
+</div>
+</main>
+       <footer><p id=copyright>Written and coded by OxiBo, 2018</p></footer>
+
+</body>
+</html>

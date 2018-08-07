@@ -207,7 +207,7 @@ $(document).ready(function() {
         }
 
         // display weather details
-        DOMstrings.$icon.attr('src', 'http://openweathermap.org/img/w/' + encodeURIComponent(allInfo.icon + '.png'));
+        DOMstrings.$icon.attr('src', 'https://openweathermap.org/img/w/' + encodeURIComponent(allInfo.icon + '.png'));
         DOMstrings.$description.text(allInfo.weather.description);
         DOMstrings.$windSpeed.text('WS ' + (allInfo.weather.wind).toFixed(2) + ' m/s');
         DOMstrings.$humidity.text(`humidity ${allInfo.humidity}%`);

@@ -18,11 +18,12 @@ $(document).ready(function() {
         springClouds: "springClouds.jpg",
         springRain: "spring_rain",
         springRain1: "springRain1.jpg",
-        springClear: "springClear1",
+        springClear: "springClear1.jpg",
         summerClouds: "summerClouds.jpg",
         summerClouds1: "clouds.jpg",
         summerRain: "summerRain.jpg",
         summerClear: "summerClear.jpg",
+        summerThunderstorm: "thunderstorm.jpeg",
         autumnRain: "autumn_rain",
         autumnRain1: "autumnRain2.jpg",
         autumnClouds: "autumnclouds.jpg",
@@ -35,60 +36,74 @@ $(document).ready(function() {
         DOMstrings.$temp.text('Location information is unavailable.');
     }, 8000);
 
-    // get json with city, state name and coordinates
-    $.getJSON('http://www.geoplugin.net/json.gp?jsoncallback=?', function(data) {
-        // console.log(data)
-        if (data.geoplugin_latitude && data.geoplugin_longitude)
-        {
+
+    $.getJSON('https://ipapi.co/json/', function(data) {
+        console.log(JSON.stringify(data, null, 2));
+        if (data.latitude && data.longitude) {
             clearTimeout(geolocationTimeout);
             useGeolocationInfo(data);
         }
-    })
+    });
+
+    // get json with city, state name and coordinates
+    // $.getJSON('http://www.geoplugin.net/json.gp?jsoncallback=?', function(data) {
+    //     // console.log(data)
+    //     // if (data.geoplugin_latitude && data.geoplugin_longitude)
+    //     // {
+    //     //     clearTimeout(geolocationTimeout);
+    //     //     useGeolocationInfo(data);
+    //     // }
+    // })
 
 
     function useGeolocationInfo(json) {
         // console.log(json);
         const info = {
-            city: json.geoplugin_city,
-            state: json.geoplugin_regionCode,
-            country: json.geoplugin_countryName,
-            lat: json.geoplugin_latitude,
-            lon: json.geoplugin_longitude,
+            // city: json.geoplugin_city,
+            // state: json.geoplugin_regionCode,
+            // country: json.geoplugin_countryName,
+            // lat: json.geoplugin_latitude,
+            // lon: json.geoplugin_longitude,
+            city: json.city,
+            state: json.region_code,
+            country: json.country_name,
+            lat: json.latitude,
+            lon: json.longitude,
         };
 
         // if (info.lat && info.lon) {
-            // ajax request to get the weather
-            $.ajax({
-                    url: 'https://api.openweathermap.org/data/2.5/weather?',
-                    data: {
-                        lat: info.lat,
-                        lon: info.lon,
-                        appid: 'e005b47d860a06d7e4e18d731fa3e7a4',
-                        units: 'metric'
-                    },
-                    dataType: 'json',
-                    type: "GET"
-                })
-                .done(function(data) {
-                    console.log(data);
+        // ajax request to get the weather
+        $.ajax({
+                url: 'https://api.openweathermap.org/data/2.5/weather?',
+                data: {
+                    lat: info.lat,
+                    lon: info.lon,
+                    appid: 'e005b47d860a06d7e4e18d731fa3e7a4',
+                    units: 'metric'
+                },
+                dataType: 'json',
+                type: "GET"
+            })
+            .done(function(data) {
+                // console.log(data);
 
-                    info.temp = data.main.temp;
-                    info.humidity = data.main.humidity;
-                    info.weather = {
-                        main: data.weather[0].main,
-                        description: data.weather[0].description, //the one we are using
-                        wind: data.wind.speed
-                    };
-                    info.icon = data.weather[0].icon;
-                    info.ID = data.weather[0].id;
+                info.temp = data.main.temp;
+                info.humidity = data.main.humidity;
+                info.weather = {
+                    main: data.weather[0].main,
+                    description: data.weather[0].description, //the one we are using
+                    wind: data.wind.speed
+                };
+                info.icon = data.weather[0].icon;
+                info.id = data.weather[0].id;
 
-                    console.log(info)
-                    displayInfo(info);
-                })
-                .fail(function(jqXHR, textStatus, errorThrown) {
-                    DOMstrings.$temp.text('Failed to load local weather.')
-                    console.log(errorThrown.toString());
-                });
+                // console.log(info)
+                displayInfo(info);
+            })
+            .fail(function(jqXHR, textStatus, errorThrown) {
+                DOMstrings.$temp.text('Failed to load local weather.')
+                console.log(errorThrown.toString());
+            });
         // } else {
         //     DOMstrings.$temp.text('Location information is unavailable.');
         // }
@@ -111,9 +126,8 @@ $(document).ready(function() {
         changeBackground();
 
         function changeBackground() {
-
             function setBackground(urlImage) {
-                DOMstrings.$background.css('background-image', 'url("css/gallery/' + urlImage);
+                DOMstrings.$background.css('background-image', 'url("css/gallery/' + urlImage + '")');
             };
 
             switch (true) {
@@ -134,34 +148,40 @@ $(document).ready(function() {
                     break;
 
                     // spring clouds
-                case ((allInfo.temp > 15 && allInfo.temp < 24) && (allInfo.id >= 801 && allInfo.id <= 804)):
+                case ((allInfo.temp > 15 && allInfo.temp < 23) && (allInfo.id >= 801 && allInfo.id <= 804)):
                     setBackground(images.summerClouds);
                     break;
 
                     // spring rain
-                case ((allInfo.temp > 15 && allInfo.temp < 24) && (allInfo.id >= 200 && allInfo.id <= 531)):
+                case ((allInfo.temp > 15 && allInfo.temp < 23) && (allInfo.id >= 200 && allInfo.id <= 531)):
                     setBackground(images.summerRain);
                     break;
 
+
                     // spring clear
-                case ((allInfo.temp > 15 && allInfo.temp < 24) && allInfo.id == 800):
-                case (allInfo.temp > 15 && allInfo.temp < 24):
+                case ((allInfo.temp > 15 && allInfo.temp < 23) && allInfo.id === 800):
+                case (allInfo.temp > 15 && allInfo.temp < 23):
                     setBackground(images.springClear);
                     break;
 
                     // summer clouds
-                case (allInfo.temp > 24 && (allInfo.id >= 801 && allInfo.id <= 804)):
+                case (allInfo.temp > 23 && (allInfo.id >= 801 && allInfo.id <= 804)):
                     setBackground(images.summerClouds);
                     break;
 
+                    // summer thunderstorm
+                case ((allInfo.weather.main.toLowerCase() === "thunderstorm") && (allInfo.temp > 23) && (allInfo.id >= 200 && allInfo.id <= 531)):
+                    setBackground(images.summerThunderstorm);
+                    break;
+
                     // summer rain
-                case (allInfo.temp > 24 && (allInfo.id >= 200 && allInfo.id <= 531)):
+                case (allInfo.temp > 23 && (allInfo.id >= 200 && allInfo.id <= 531)):
                     setBackground(images.summerRain);
                     break;
 
                     // summer clear
-                case (allInfo.temp > 24 && allInfo.id == 800):
-                case (allInfo.temp > 24):
+                case (allInfo.temp > 23 && allInfo.id == 800):
+                case (allInfo.temp > 23):
                     setBackground(images.summerClear);
                     break;
 
@@ -176,16 +196,14 @@ $(document).ready(function() {
                     break;
 
                     // autumn clear
-                case ((allInfo.temp < 24 && allInfo.temp > 0) && allInfo.id == 800):
-                case (allInfo.temp < 24 && allInfo.temp > 0):
+                case ((allInfo.temp < 23 && allInfo.temp > 0) && allInfo.id == 800):
+                case (allInfo.temp < 23 && allInfo.temp > 0):
                     setBackground(images.autumnClear);
                     break;
 
                 default:
                     setBackground(images.default);
             }
-
-
         }
 
         // display weather details
@@ -212,13 +230,13 @@ $(document).ready(function() {
 
             // toggle between Celsius and Fahrenheit
             DOMstrings.$degrees.on('click', function() {
-            F = !F;
-            DOMstrings.$temp.text(convert(allInfo.temp, F));
-            if (F) {
-                DOMstrings.$degrees.text('\u2109');
-            } else {
-                DOMstrings.$degrees.text('\u2103');
-            }
+                F = !F;
+                DOMstrings.$temp.text(convert(allInfo.temp, F));
+                if (F) {
+                    DOMstrings.$degrees.text('\u2109');
+                } else {
+                    DOMstrings.$degrees.text('\u2103');
+                }
             });
         };
     }
